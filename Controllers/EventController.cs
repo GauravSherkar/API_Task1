@@ -26,15 +26,15 @@ namespace Task1.Controllers
             return await _dbContext.Events.ToListAsync();
         }
 
-        [HttpGet("{uid}")]
-        public async Task<ActionResult<Event>> GetEvent(int uid)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Event>> GetEvent(int id)
         {
             if (_dbContext.Events == null)
             {
                 return NotFound();
             };
 
-            var events = await _dbContext.Events.FindAsync(uid);
+            var events = await _dbContext.Events.FindAsync(id);
             if (events == null)
             {
                 return NotFound();
@@ -42,15 +42,7 @@ namespace Task1.Controllers
             return events;
 
         }
-        //[HttpPost]
-        //public async Task<ActionResult<Event>> PostEvent(Event Event)
-        //{
-        //    _dbContext.Events.Add(Event);
-        //    await _dbContext.SaveChangesAsync();
-
-        //    return CreatedAtAction(nameof(GetEvent), new { id = Event.uid }, Event);
-        //}
-
+       
         [HttpPost]
         public async Task<ActionResult> AddEvent(AddEventRequest addEventRequest)
         {
