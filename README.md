@@ -1,1 +1,155 @@
 # API_Task1
+.NET FRAMEWORK 7.0
+
+TEMPLATE = ASP.NET CORE WEB API (INBUILT SWAGGER INSTALL)
+USING SWAGGER TO THIS TASK...
+
+http://localhost:47283/api/Event          GET
+http://localhost:47283/api/Event/3        GET (ID)
+http://localhost:47283/api/Event          POST
+http://localhost:47283/api/Event?id=5     PUT (ID)
+http://localhost:47283/api/Event?id=6     DELETE (ID)
+
+
+  ** #_MANAGE NUGET PACKAGES INSTALLED**
+ 
+"Microsoft.AspNetCore.OpenApi" Version="7.0.5" 
+"Microsoft.EntityFrameworkCore" Version="7.0.5" 
+"Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" 
+"Microsoft.EntityFrameworkCore.Tools" Version="7.0.5"
+"Swashbuckle.AspNetCore" Version="6.5.0" 
+
+BACKEND = Microsoft Sql Server Management Studio 2018
+appsettings.json use connection string 
+Entity Framework 
+package manager console
+using this commands
+add-migration
+update_database
+using code first approach to create the database and tables
+
+*********************************************************************Scripts************************************************************************************
+
+GO
+/****** Object:  Database [EventDB]    Script Date: 23-05-2023 22:37:09 ******/
+CREATE DATABASE [EventDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'EventDB', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\EventDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'EventDB_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\EventDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [EventDB] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [EventDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [EventDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [EventDB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [EventDB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [EventDB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [EventDB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [EventDB] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [EventDB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [EventDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [EventDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [EventDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [EventDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [EventDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [EventDB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [EventDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [EventDB] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [EventDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [EventDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [EventDB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [EventDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [EventDB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [EventDB] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+ALTER DATABASE [EventDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [EventDB] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [EventDB] SET  MULTI_USER 
+GO
+ALTER DATABASE [EventDB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [EventDB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [EventDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [EventDB] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [EventDB] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [EventDB] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [EventDB] SET QUERY_STORE = OFF
+GO
+USE [EventDB]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 23-05-2023 22:37:10 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Events]    Script Date: 23-05-2023 22:37:10 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Events](
+	[uid] [int] IDENTITY(1,1) NOT NULL,
+	[type] [nvarchar](max) NOT NULL,
+	[name] [nvarchar](max) NOT NULL,
+	[tagline] [nvarchar](max) NOT NULL,
+	[Schedule] [datetime2](7) NULL,
+	[description] [nvarchar](max) NOT NULL,
+	[files] [nvarchar](max) NOT NULL,
+	[moderator] [nvarchar](max) NOT NULL,
+	[category] [nvarchar](max) NOT NULL,
+	[sub_category] [nvarchar](max) NOT NULL,
+	[rigor_rank] [int] NOT NULL,
+	[attendees] [int] NOT NULL,
+ CONSTRAINT [PK_Events] PRIMARY KEY CLUSTERED 
+(
+	[uid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+USE [master]
+GO
+ALTER DATABASE [EventDB] SET  READ_WRITE 
+GO
